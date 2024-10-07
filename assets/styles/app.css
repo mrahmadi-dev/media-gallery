@@ -1,0 +1,43 @@
+@font-face {
+    font-family: shabnam;
+    src: url('../fonts/shabnam/Shabnam.eot');
+    src: url('../fonts/shabnam/Shabnam.eot?#iefix') format('embedded-opentype'), url('../fonts/shabnam/Shabnam.woff') format('woff'), url('../fonts/shabnam/Shabnam.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: shabnam;
+    src: url('../fonts/shabnam/Shabnam-Bold.eot');
+    src: url('../fonts/shabnam/Shabnam-Bold.eot?#iefix') format('embedded-opentype'), url('../fonts/shabnam/Shabnam-Bold.woff') format('woff'), url('../fonts/shabnam/Shabnam-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: shabnam;
+    src: url('../fonts/shabnam/Shabnam-Light.eot');
+    src: url('../fonts/shabnam/Shabnam-Light.eot?#iefix') format('embedded-opentype'), url('../fonts/shabnam/Shabnam-Light.woff') format('woff'), url('../fonts/shabnam/Shabnam-Light.ttf') format('truetype');
+    font-weight: 300;
+}
+
+body {
+    font-family: shabnam, serif;
+    background-color: #fafafa !important;
+    direction: rtl;
+}
+.navbar {
+    background-color: #eeeeee!important;
+}
+#notice_wrapper li {
+    color: red;
+}
+.inline-gallery-container {
+    width: 100%;
+
+// set 60% height
+height: 50;
+    padding-bottom: 65%;
+}
+.lg-outer {
+    direction: ltr;
+}
+.h_iframe-aparat_embed_frame{position:relative;}.h_iframe-aparat_embed_frame .ratio{display:block;width:100%;height:auto;}.h_iframe-aparat_embed_frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;}

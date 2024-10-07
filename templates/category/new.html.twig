@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ایجاد دسته بندی جدید{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <button class="btn btn-danger mt-3 mb-3 d-block ms-auto" onclick="history.back()">بازگشت</button>
+            <ul>
+                {% for error in app.flashes('notice') %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+
+        <h3 class="mt-2 mb-5">افزودن دسته بندی جدید:</h3>
+        <form action="{{ path('save_category') }}" method="post" class="row g-3" autocomplete="off">
+            <input type="hidden" name="id" value="{{ category.id ?? '' }}">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="inputTitle" class="form-label">عنوان</label>
+                    <input type="text" name="title" value="{{ category.title ?? '' }}" class="form-control" id="inputTitle">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label for="inputDescription" class="form-label">توضیحات</label>
+                    <textarea class="form-control" name="description" id="inputDescription">{{ category.description ?? '' }}</textarea>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    {{ category is defined ? 'ذخیره' : 'افزودن' }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}
+
+

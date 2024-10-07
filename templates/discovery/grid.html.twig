@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}گالری{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+
+            {% for post in posts %}
+                <div class="col">
+                    <div class="card h-100" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; ">
+
+                        {% if post.fileTypeFa == 'تصویر' %}
+                            <a target="_blank" href="{{ (post.fileName != "") ? post.getImagePath : post.link }}">
+                                <img style="height: 230px" src="{{ (post.fileName != "") ? post.getImagePath : post.link }}" data-img="{{ (post.fileName != "") ? post.getImagePath : post.link }}" class="card-img-top post-image" alt="{{ post.alt }}">
+                            </a>
+                        {% else %}
+                            <span onclick="this.nextElementSibling.click()" style="position: absolute;right: 29%;color: #fff5f5d6;top: 13%;cursor: pointer;z-index: 1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                                <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                            </svg>
+                            </span>
+                            <img style="cursor: pointer;height: 230px"  class="video" data-meta="{{ post.metaData }}" src="{{ post.coverImagePath }}" data-file="{{ post.getFileNamePath }}" data-video="{{ post.link }}" data-bs-toggle="modal" data-bs-target="#videoModal" data-target="#videoModal">
+                        {% endif %}
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-text"></p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted d-flex justify-content-between">
+                                <span dir="ltr">{{ post.datetime }}</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+
+    <div  class="modal fade" id="videoModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="max-width: 800px">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-bs-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                    <div class="video_wrapper"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

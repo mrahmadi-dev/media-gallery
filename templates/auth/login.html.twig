@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ورود به پنل کاربری{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row ">
+            <ul class="text-center" style="list-style: none">
+                {% for error in app.flashes('notice') %}
+                    <li style="color: red">{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-5" style="background: white;padding: 40px;box-shadow: 0 5px 15px rgba(0,0,0,.08)">
+                <h3 class="text-center mb-4">ورود</h3>
+                <form action="{{ path('auth') }}" method="post">
+                    <div class="form-floating mb-3">
+                        <input dir="ltr" name="mobile" type="text" class="form-control" id="mobileInput" placeholder="09141111111">
+                        <label for="mobileInput">شماره موبایل</label>
+                    </div>
+                    <div class="form-floating">
+                        <input name="password" dir="ltr" type="password" class="form-control" id="passwordInput" placeholder="">
+                        <label for="passwordInput">رمز عبور</label>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-4">ورود</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
+{% endblock %}
+
+
+{#{% block javascripts %}#}
+{#    <script>#}
+{#        // alert('sd')#}
+{#    </script>#}
+{#{% endblock %}#}

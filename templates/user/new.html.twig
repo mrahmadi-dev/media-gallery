@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}مدیریت کاربران{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <button class="btn btn-danger mt-3 mb-3 d-block ms-auto" onclick="history.back()">بازگشت</button>
+            <ul>
+                {% for error in app.flashes('notice') %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+
+        <h3 class="mt-2 mb-5">افزودن کاربر جدید:</h3>
+        <form action="{{ path('save_user') }}" method="post" enctype="multipart/form-data" class="row g-3" autocomplete="off">
+            <input type="hidden" name="id" value="{{ user.id ?? '' }}">
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">شماره موبایل</label>
+                <input type="text" name="mobile" value="{{ user.mobile ?? '' }}" class="form-control" id="inputEmail4">
+            </div>
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">رمز عبور</label>
+                <input type="password" name="password"  class="form-control" id="inputPassword4">
+            </div>
+            <div class="col-4">
+                <label for="inputAddress" class="form-label">نام</label>
+                <input type="text" name="fname" value="{{ user.fname ?? '' }}" class="form-control" id="inputAddress" >
+            </div>
+            <div class="col-4">
+                <label for="inputAddress" class="form-label">نام خانوادگی</label>
+                <input type="text" name="lname" value="{{ user.lname ?? '' }}" class="form-control" id="inputAddress" >
+            </div>
+            <div class="col-md-4">
+                <label for="inputState" class="form-label">گروه کاربری</label>
+                <select id="inputState" class="form-select" name="role">
+                    <option value="">انتخاب...</option>
+                    <option {{ ( user is defined and 'ROLE_ADMIN' in user.roles ) ? 'selected' : '' }} value="ROLE_ADMIN">مدیر</option>
+                    <option {{ ( user is defined and 'ROLE_ADMIN' not in user.roles ) ? 'selected' : '' }} value="ROLE_USER">کاربر عادی</option>
+                </select>
+            </div>
+            {% if user is defined and user.photo != "" %}
+                <div class="col-md-4 position-relative">
+                    <img style="width: 100%" src="{{ user.photoPath }}" alt="{{ user.lname }}">
+                    <input type="hidden" name="current_photo" value="{{ user.photo }}">
+                    <span id="deleteUserPhoto" style="color: red;position: absolute;bottom: -30px;right: 50%;cursor: pointer;font-size: 25px">X</span>
+                </div>
+            {% else %}
+                <div class="col-md-4">
+                    <label for="inputState" class="form-label">عکس پروفایل</label>
+                    <input type="file" name="photo">
+                </div>
+            {% endif %}
+
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    {{ user is defined ? 'ذخیره' : 'افزودن' }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        $('#deleteUserPhoto').on('click',function (){
+            alert('sd')
+        })
+    </script>
+{% endblock %}
+
+

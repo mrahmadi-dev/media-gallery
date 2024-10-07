@@ -1,0 +1,211 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}افزودن فایل جدید{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <button class="btn btn-danger mt-3 mb-3 d-block ms-auto" onclick="history.back()">بازگشت</button>
+            <ul id="notice_wrapper">
+                {% for error in app.flashes('notice') %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+
+        <h3 class="mt-2 mb-5">افزودن فایل جدید:</h3>
+        <form id="uploadForm" action="{{ path('save_post') }}" method="post" enctype="multipart/form-data" class="row g-3" autocomplete="off">
+            <input type="hidden" name="id" value="{{ post.id ?? '' }}">
+            <input type="hidden" name="id_gallery" value="{{ gallery_id }}">
+            <div class="row">
+{#                <div class="col-md-2">#}
+{#                    <label for="inputFileType" class="form-label">نوع فایل</label>#}
+{#                    <select {{ post is defined ? 'disabled' : '' }}  class="form-control" name="file_type" id="inputFileType">#}
+{#                        <option {{ (post is defined and post.fileType == 'IMAGE') ? 'selected' : '' }} value="IMAGE">تصویر</option>#}
+{#                        <option {{ (post is defined and post.fileType == 'VIDEO') ? 'selected' : '' }} value="VIDEO">ویدیو</option>#}
+{#                    </select>#}
+{#                </div>#}
+                <div class="col-md-4">
+                    <label for="inputTitle" class="form-label">عنوان فایل</label>
+                    <input type="text" name="title" value="{{ post.title ?? '' }}" class="form-control" id="inputTitle">
+                </div>
+                <div class="col-md-2" id="altWrapper">
+                    <label for="inputAlt" class="form-label">تگ alt</label>
+                    <input type="text" name="alt" value="{{ post.alt ?? '' }}" class="form-control" id="inputAlt">
+                </div>
+                <div class="col-md-6">
+                    <label for="select2tags" class="form-label d-block">برچسب ها</label>
+                    <select name="tags[]" class="js-example-responsive" multiple="multiple" style="width: 100%" id="select2tags">
+                        {% for tag in tags %}
+                            <option {{ (post is defined and tag.id in post.getTagsArray) ? 'selected' : '' }} value="{{ tag.id }}">{{ tag.title }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+{#                <div class="col-md-3">#}
+{#                    <label for="inputIdGallery" class="form-label">گالری</label>#}
+{#                    <select class="form-control" name="id_gallery" id="inputIdGallery">#}
+{#                        {% for gallery in galleries %}#}
+{#                            <option {{ (post is defined and gallery.id in post.getGalleriesArray) or (post is not defined and gallery.id == gallery_id) ? 'selected' : '' }} value="{{ gallery.id }}">{{ gallery.title }}</option>#}
+{#                        {% endfor %}#}
+{#                    </select>#}
+{#                </div>#}
+            </div>
+            <div class="row mt-2">
+
+                <div class="col-md-6">
+                    <label for="inputDescription" class="form-label">توضیحات</label>
+                    <textarea class="form-control" id="inputDescription"  name="description">{{ post.description ?? '' }}</textarea>
+                </div>
+
+
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="form-check" style="display: {{ ((post is defined and post.fileName != "" and post.fileType == 'IMAGE') or (post is not defined)) ? 'block' : 'none' }}">
+                        <input {{ ((post is defined and post.fileName != "" and post.fileType == 'IMAGE') or (post is not defined)) ? 'checked' : '' }} class="form-check-input" type="radio" name="type" value="image_upload" id="image_upload">
+                        <label class="form-check-label" for="radioUploadImage">
+                            آپلود عکس
+                        </label>
+                    </div>
+                    <div class="form-check" style="display: {{ ((post is defined and post.fileName != "" and post.fileType == 'VIDEO') or (post is not defined)) ? 'block' : 'none' }}">
+                        <input {{ ((post is defined and post.fileName != "" and post.fileType == 'VIDEO' )) ? 'checked' : '' }} class="form-check-input" type="radio" name="type" value="video_upload" id="video_upload">
+                        <label class="form-check-label" for="radioUploadVideo">
+                            آپلود ویدیو
+                        </label>
+                    </div>
+                    <div class="form-check" style="display: {{ ((post is defined and post.link != "") or (post is not defined)) ? 'block' : 'none' }}">
+                        <input {{ (post is defined and post.link != "") ? 'checked' : '' }} class="form-check-input" type="radio" value="image_link" name="type" id="image_link">
+                        <label class="form-check-label" for="radioLinkImage">
+                            بازنشانی لینک عکس
+                        </label>
+                    </div>
+                    <div class="form-check" style="display: {{ ((post is defined and post.link != "") or (post is not defined)) ? 'block' : 'none' }}">
+                        <input {{ (post is defined and post.link != "") ? 'checked' : '' }} class="form-check-input" type="radio" value="video_link" name="type" id="video_link">
+                        <label class="form-check-label" for="radioLinkVideo">
+                            بازنشانی لینک ویدیو
+                        </label>
+                    </div>
+                    <div class="form-check" style="display: {{ ((post is defined and post.metaData != "") or (post is not defined)) ? 'block' : 'none' }}">
+                        <input {{ (post is defined and post.metaData != "") ? 'checked' : '' }} class="form-check-input" type="radio" value="aparat" name="type" id="aparat">
+                        <label class="form-check-label" for="radioAparat">
+                            ویدیو آپارات
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4 justify-content-center" id="image_upload_wrapper">
+                {% if post is defined and post.fileName != ""  %}
+                <div class="col-md-6 current-image-container position-relative">
+                    {% if post.fileType == 'IMAGE' %}
+                        <img style="width: 100%" src="{{ post.imagePath }}">
+                    {% else %}
+                        <video id="m_video" controls width="100%">
+                            <source src="{{ post.fileNamePath }}" type="video/mp4">
+                        </video>
+                    {% endif %}
+                    <input type="hidden" name="current_file" value="{{ post.fileName }}">
+                    <span id="deletePostImage" style="color: red;position: absolute;bottom: -30px;right: 50%;cursor: pointer;font-size: 25px">X</span>
+                </div>
+                {% else %}
+                    <div class="col-md-6">
+                        <label for="inputFile" class="form-label">آپلود فایل</label>
+                        <input type="file" name="file_image" id="inputFile" class="form-control">
+                    </div>
+                {% endif %}
+                <!-- Progress bar -->
+                <div class="progress mt-5">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="row mt-4 justify-content-center" id="video_upload_wrapper" style="display: none">
+                {% if post is defined and post.fileName != ""  %}
+                    <div class="col-md-6 current-image-container position-relative">
+                        {% if post.fileType == 'IMAGE' %}
+                            <img style="width: 100%" src="{{ post.imagePath }}">
+                        {% else %}
+                            <video id="m_video" controls width="100%">
+                                <source src="{{ post.fileNamePath }}" type="video/mp4">
+                            </video>
+                        {% endif %}
+                        <input type="hidden" name="current_file" value="{{ post.fileName }}">
+                        <span id="deletePostImage" style="color: red;position: absolute;bottom: -30px;right: 50%;cursor: pointer;font-size: 25px">X</span>
+                    </div>
+                {% else %}
+                    <div class="col-md-6">
+                        <label for="inputFile2" class="form-label">آپلود فایل</label>
+                        <input type="file" name="file_video" id="inputFile2" class="form-control">
+                    </div>
+                {% endif %}
+
+                {% if post is defined and post.coverImage != "" %}
+                    <div class="col-md-6 current-image-container position-relative">
+                        <img style="width: 100%" src="{{ post.coverImagePath }}">
+                        <input type="hidden" name="current_cover_file" value="{{ post.coverImage }}">
+                        <span class="deletePostCoverImage" style="color: red;position: absolute;bottom: -30px;right: 50%;cursor: pointer;font-size: 25px">X</span>
+                    </div>
+                {% else %}
+                    <div class="col-md-6 coverImageWrapper"  style="display: {{ ( ( post is defined and post.fileType == 'VIDEO') or (post is not defined) ) ? 'block' : 'none'  }}">
+                        <label for="inputCoverImage" class="form-label">آپلود تصویر کاور ویدیو</label>
+                        <input type="file" name="video_upload_cover_image" id="inputCoverImage" class="form-control">
+                    </div>
+                {% endif %}
+
+                <!-- Progress bar -->
+                <div class="progress mt-5">
+                    <div class="progress-bar"></div>
+                </div>
+            </div>
+
+
+            <div class="row mt-4" id="image_link_wrapper" style="display: none">
+                <div class="col-md-7">
+                    <label for="inputLink" class="form-label">لینک</label>
+                    <input dir="ltr" class="form-control" type="text" {{ post.link ?? '' }} name="link" id="inputLink">
+                </div>
+            </div>
+            <div class="row mt-4" id="video_link_wrapper" style="display: none">
+                <div class="col-md-7">
+                    <label for="inputLink" class="form-label">لینک</label>
+                    <input dir="ltr" class="form-control" type="text" {{ post.link ?? '' }} name="link" id="inputLink">
+                </div>
+                <div class="col-md-5 coverImageWrapper"  style="display: {{ ( (post is defined and post.fileType == 'VIDEO') or (post is not defined) ) ? 'block' : 'none'  }}">
+                    <label for="inputCoverImage" class="form-label">آپلود تصویر کاور ویدیو</label>
+                    <input type="file" name="video_link_cover_image" id="inputCoverImage" class="form-control">
+                </div>
+            </div>
+
+            <div class="row mt-4" id="aparat_wrapper" style="display: none">
+                <div class="col-md-7">
+                    <label for="inputMetaData" class="form-label">کد آی فریم آپارات</label>
+                    <textarea dir="ltr" class="form-control"  name="meta_data" id="inputMetaData">{{ post.metaData ?? '' }}</textarea>
+                </div>
+                {% if post is defined and post.coverImage != "" %}
+                    <div class="col-md-5 current-image-container position-relative">
+                        <img style="width: 100%" src="{{ post.coverImagePath }}">
+                        <input type="hidden" name="current_cover_file" value="{{ post.coverImage }}">
+                        <span class="deletePostCoverImage" style="color: red;position: absolute;bottom: -30px;right: 50%;cursor: pointer;font-size: 25px">X</span>
+                    </div>
+                {% else %}
+                    <div class="col-md-5 coverImageWrapper"  style="display: {{ ( (post is defined and post.fileType == 'VIDEO') or (post is not defined) ) ? 'block' : 'none'  }}">
+                        <label for="inputCoverImage" class="form-label">آپلود تصویر کاور ویدیو</label>
+                        <input type="file" name="aparat_cover_image" id="inputCoverImage" class="form-control">
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">
+                    {{ post is defined ? 'ذخیره' : 'افزودن' }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+

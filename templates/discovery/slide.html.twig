@@ -1,0 +1,54 @@
+{% extends 'blank.html.twig' %}
+
+{% block title %}گالری{% endblock %}
+
+{% block body %}
+
+        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+            
+            <div class="swiper-wrapper">
+                {% for post in posts %}
+                    {% if post.fileType == 'IMAGE' %}
+                        <div class="swiper-slide">
+                            <img src="{{ post.getFileNamePath }}" />
+                        </div>
+                    {% else %}
+                        {% if post.metaData != "" %}
+                            <div class="swiper-slide">
+                                <div class="iframe-container">
+                                    <iframe src="{{ post.metaData }}"  allowFullScreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+                                </div>
+                            </div>
+                        {% else %}
+                        <div class="swiper-slide">
+                            <video width="100%" height="auto" controls>
+                                <source src="{{ post.getFileNamePath }}" type="video/mp4">
+                            </video>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+        <div thumbsSlider="" class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                {% for post in posts %}
+                    <div class="swiper-slide">
+                        <img src="{{ post.getThumbnailPath }}" />
+                    </div>
+
+                {% endfor %}
+            </div>
+        </div>
+
+
+{% endblock %}
+{% block js %}
+    <script>
+
+        {#let posts = {{ posts | json_encode | raw }}#}
+    </script>
+
+{% endblock %}

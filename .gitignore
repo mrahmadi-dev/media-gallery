@@ -1,0 +1,31 @@
+/public/uploads/
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/asset-mapper ###
+/public/assets/
+/assets/vendor
+/public/uploads
+###< symfony/asset-mapper ###
+/node_modules/
+.csm_setup_86HzZiIqs
+.csm_setup_QdS81vEBS
+.csm_setup_R8wQIQDh7

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery.min.css"
+          integrity="sha512-F2E+YYE1gkt0T5TVajAslgDfTEUQKtlu4ralVq78ViNxhKXQLrgQLLie8u1tVdG2vWnB3ute4hcdbiBtvJQh0g=="
+          crossOrigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.2/css/lightgallery-bundle.min.css"
+          integrity="sha512-nUqPe0+ak577sKSMThGcKJauRI7ENhKC2FQAOOmdyCYSrUh0GnwLsZNYqwilpMmplN+3nO3zso8CWUgu33BDag=="
+          crossOrigin="anonymous" referrerpolicy="no-referrer"/>
+
+    {% block javascripts %}
+    {% endblock %}
+    {% block importmap %}{{ importmap('gallery') }}{% endblock %}
+{#    <script type="module" src="{{ asset('assets/js/gallery.js') }}"></script>#}
+
+</head>
+<body>
+{#<script src="{{ asset('library/lightgallery/lightgallery.min.js') }}"></script>#}
+{#<script src="{{ asset('library/lightgallery/plugins/lg-thumbnail.min.js') }}"></script>#}
+{#<script src="{{ asset('library/lightgallery/plugins/lg-video.min.js') }}"></script>#}
+{#<script src="{{ asset('library/lightgallery/plugins/lg-zoom.min.js') }}"></script>#}
+
+{#<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/lightgallery.min.js" ></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js" ></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/video/lg-video.min.js" ></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js" ></script>#}
+{#<script src="https://unpkg.com/lightgallery@2.7.2/plugins/zoom/lg-zoom.min.js"></script>#}
+{#<script src="https://unpkg.com/lightgallery@2.7.2/plugins/thumbnail/lg-thumbnail.min.js"></script>#}
+{#<script src="https://unpkg.com/lightgallery@2.7.2/plugins/video/lg-video.min.js"></script>#}
+
+{#<script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.4.0/lightgallery.min.js" integrity="sha512-76iVPLEHY5kfZFCmHBQHLkcE4I2r+gK/I/HLYcm3iCuRO/hopAtyO3AFPCZy5B4347wQ7NftStUBVk/cR21MSw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>#}
+
+{#<script src="https://cdn.skypack.dev/lightgallery@2.4.0"></script>#}
+
+
+
+    {% block body %}{% endblock %}
+    {% block js %}
+    {% endblock %}
+
+{#<script type="module">import lightGallery from "https://cdn.skypack.dev/lightgallery@2.4.0";</script>#}
+{#<script>#}
+{#    const $lgContainer = document.getElementById("inline-gallery-container");#}
+{#    let elements = [];#}
+{#    if (typeof posts !== 'undefined'){#}
+{#        posts.forEach(item => {#}
+{#            if(item.fileType === 'IMAGE'){#}
+{#                elements.push({#}
+{#                    src: item.fileNamePath,#}
+{#                    responsive: item.fileNamePath,#}
+{#                    thumb: item.fileNamePath,#}
+{#                })#}
+{#            }else{#}
+{#                if (item.metadata !== "") {#}
+{#                    elements.push({#}
+{#                        poster: item.coverImagePath,#}
+{#                        thumb: item.coverImagePath,#}
+{#                        iframe: true,#}
+{#                        src: item.metadata#}
+{#                    })#}
+{#                }else{#}
+{#                    elements.push({#}
+{#                        video: {"source": [{"src":item.fileNamePath, "type":"video/mp4"}], "attributes": {"preload": false, "controls": true}},#}
+{#                        // src: "http://localhost:8000/uploads/posts/file-example-MP4-480-1-5MG-65b5ee3992c90.mp4",#}
+{#                        poster: item.coverImagePath,#}
+{#                        thumb: item.coverImagePath,#}
+
+{#                    })#}
+{#                }#}
+{#            }#}
+{#        })#}
+{#    }#}
+
+{#    console.log(elements)#}
+{#    const inlineGallery = lightGallery($lgContainer, {#}
+{#        dynamic: true,#}
+{#        plugins: [lgZoom, lgVideo, lgThumbnail],#}
+{#        dynamicEl : elements,#}
+{#        container: $lgContainer,#}
+{#        closable: false,#}
+{#        licenseKey: '',#}
+{#    });#}
+
+{#    setTimeout(() => {#}
+{#        inlineGallery.openGallery();#}
+{#    }, 200);#}
+</script>
+</body>
+</html>
