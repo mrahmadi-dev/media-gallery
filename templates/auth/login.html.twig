@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ورود به پنل کاربری{% endblock %}
+{% block title %}Login to panel{% endblock %}
 
 {% block body %}
     <div class="container mt-5">
@@ -14,17 +14,17 @@
 
         <div class="row justify-content-center">
             <div class="col-5" style="background: white;padding: 40px;box-shadow: 0 5px 15px rgba(0,0,0,.08)">
-                <h3 class="text-center mb-4">ورود</h3>
+                <h3 class="text-center mb-4">Login</h3>
                 <form action="{{ path('auth') }}" method="post">
                     <div class="form-floating mb-3">
                         <input dir="ltr" name="mobile" type="text" class="form-control" id="mobileInput" placeholder="09141111111">
-                        <label for="mobileInput">شماره موبایل</label>
+                        <label for="mobileInput">Username</label>
                     </div>
                     <div class="form-floating">
                         <input name="password" dir="ltr" type="password" class="form-control" id="passwordInput" placeholder="">
-                        <label for="passwordInput">رمز عبور</label>
+                        <label for="passwordInput">password</label>
                     </div>
-                    <button type="submit" class="btn btn-success mt-4">ورود</button>
+                    <button type="submit" class="btn btn-success mt-4">Login</button>
                 </form>
             </div>
         </div>

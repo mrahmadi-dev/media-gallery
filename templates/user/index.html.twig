@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}مدیریت کاربران{% endblock %}
+{% block title %}Manage Users{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <a class="btn btn-success mt-3 mb-3" href="{{ path('new_user') }}">افزودن کاربر جدید</a>
-        <table class="table">
+        <a class="btn btn-success mt-3 mb-3" href="{{ path('new_user') }}">add new user</a>
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">عکس پروفایل</th>
-                <th scope="col">نام</th>
-                <th scope="col">نام خانوادگی</th>
-                <th scope="col">موبایل</th>
-                <th scope="col">عملیات</th>
+                <th scope="col">profile image</th>
+                <th scope="col">firstname</th>
+                <th scope="col">lastname</th>
+                <th scope="col">mobile</th>
+                <th scope="col">operation</th>
             </tr>
             </thead>
             <tbody>

@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}مدیریت گالری ها{% endblock %}
+{% block title %}Manage galleries{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <a class="btn btn-success mt-3 mb-3" href="{{ path('new_gallery') }}">افزودن گالری جدید</a>
-        <table class="table">
+        <a class="btn btn-success mt-3 mb-3" href="{{ path('new_gallery') }}">Add new gallery</a>
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">نام گالری</th>
-                <th scope="col">لینک</th>
-                <th scope="col">توضیحات</th>
-                <th scope="col">عملیات</th>
+                <th scope="col">gallery name</th>
+                <th scope="col">link</th>
+                <th scope="col">description</th>
+                <th scope="col">operation</th>
             </tr>
             </thead>
             <tbody>

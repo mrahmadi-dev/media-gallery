@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}مدیریت دسته بندی ها{% endblock %}
+{% block title %}Manage categories{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <a class="btn btn-success mt-3 mb-3" href="{{ path('new_category') }}">افزودن دسته بندی جدید</a>
-        <table class="table">
+        <a class="btn btn-success mt-3 mb-3" href="{{ path('new_category') }}">add new category</a>
+        <table class="table table-bordered">
             <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">عنوان</th>
-                <th scope="col">توضیحات</th>
-                <th scope="col">عملیات</th>
+                <th scope="col">title</th>
+                <th scope="col">description</th>
+                <th scope="col">operation</th>
             </tr>
             </thead>
             <tbody>

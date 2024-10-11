@@ -1,41 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}مدیریت کاربران{% endblock %}
+{% block title %}Add new User{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <button class="btn btn-danger mt-3 mb-3 d-block ms-auto" onclick="history.back()">بازگشت</button>
+{#        <button class="btn btn-danger mt-3 mb-3 d-block ms-auto" onclick="history.back()">بازگشت</button>#}
             <ul>
                 {% for error in app.flashes('notice') %}
                     <li>{{ error }}</li>
                 {% endfor %}
             </ul>
 
-        <h3 class="mt-2 mb-5">افزودن کاربر جدید:</h3>
+        <h3 class="mt-2 mb-5">add new user:</h3>
         <form action="{{ path('save_user') }}" method="post" enctype="multipart/form-data" class="row g-3" autocomplete="off">
             <input type="hidden" name="id" value="{{ user.id ?? '' }}">
             <div class="col-md-6">
-                <label for="inputEmail4" class="form-label">شماره موبایل</label>
+                <label for="inputEmail4" class="form-label">username</label>
                 <input type="text" name="mobile" value="{{ user.mobile ?? '' }}" class="form-control" id="inputEmail4">
             </div>
             <div class="col-md-6">
-                <label for="inputPassword4" class="form-label">رمز عبور</label>
+                <label for="inputPassword4" class="form-label">password</label>
                 <input type="password" name="password"  class="form-control" id="inputPassword4">
             </div>
             <div class="col-4">
-                <label for="inputAddress" class="form-label">نام</label>
+                <label for="inputAddress" class="form-label">firstname</label>
                 <input type="text" name="fname" value="{{ user.fname ?? '' }}" class="form-control" id="inputAddress" >
             </div>
             <div class="col-4">
-                <label for="inputAddress" class="form-label">نام خانوادگی</label>
+                <label for="inputAddress" class="form-label">lastname</label>
                 <input type="text" name="lname" value="{{ user.lname ?? '' }}" class="form-control" id="inputAddress" >
             </div>
             <div class="col-md-4">
-                <label for="inputState" class="form-label">گروه کاربری</label>
+                <label for="inputState" class="form-label">user group</label>
                 <select id="inputState" class="form-select" name="role">
-                    <option value="">انتخاب...</option>
-                    <option {{ ( user is defined and 'ROLE_ADMIN' in user.roles ) ? 'selected' : '' }} value="ROLE_ADMIN">مدیر</option>
-                    <option {{ ( user is defined and 'ROLE_ADMIN' not in user.roles ) ? 'selected' : '' }} value="ROLE_USER">کاربر عادی</option>
+                    <option value="">select...</option>
+                    <option {{ ( user is defined and 'ROLE_ADMIN' in user.roles ) ? 'selected' : '' }} value="ROLE_ADMIN">admin</option>
+                    <option {{ ( user is defined and 'ROLE_ADMIN' not in user.roles ) ? 'selected' : '' }} value="ROLE_USER">user</option>
                 </select>
             </div>
             {% if user is defined and user.photo != "" %}
@@ -46,7 +46,7 @@
                 </div>
             {% else %}
                 <div class="col-md-4">
-                    <label for="inputState" class="form-label">عکس پروفایل</label>
+                    <label for="inputState" class="form-label">profile image</label>
                     <input type="file" name="photo">
                 </div>
             {% endif %}
@@ -54,7 +54,7 @@
 
             <div class="col-12">
                 <button type="submit" class="btn btn-primary">
-                    {{ user is defined ? 'ذخیره' : 'افزودن' }}
+                    {{ user is defined ? 'save' : 'add' }}
                 </button>
             </div>
         </form>

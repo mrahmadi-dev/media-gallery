@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}مدیریت رسانه های گالری {{ gallery_title }}{% endblock %}
+{% block title %}
+    manage media of
+    {{ gallery_title }}
+{% endblock %}
 
 {% block body %}
     <div class="container mt-4">
-        <h3 class="text-center"> مدیریت رسانه های گالری: {{ gallery_title }}</h3>
-        <a class="btn btn-success mt-3 mb-3" href="{{ path('new_post',{id:gallery_id}) }}">افزودن رسانه جدید</a>
-        <button class="btn btn-primary" id="multipleUpload" type="button">آپلود یکجا</button>
+        <h3 class="text-center"> gallery: {{ gallery_title }}</h3>
+        <a class="btn btn-success mt-3 mb-3" href="{{ path('new_post',{id:gallery_id}) }}">add new media</a>
+        <button class="btn btn-primary" id="multipleUpload" type="button">upload together</button>
 
         <div class="dropzone mb-4" id="uploadFiles" style="display: none">
         </div>
@@ -15,12 +18,12 @@
             <thead>
             <tr>
 {#                <th scope="col">#</th>#}
-                <th>تصویر بندانگشتی</th>
-                <th scope="col">عنوان</th>
-                <th scope="col">نوع فایل</th>
-                <th scope="col">لینک</th>
-                <th scope="col">گالری</th>
-                <th scope="col">عملیات</th>
+                <th>thumbnail</th>
+                <th scope="col">title</th>
+                <th scope="col">file type</th>
+                <th scope="col">link</th>
+                <th scope="col">gallery</th>
+                <th scope="col">operation</th>
             </tr>
             </thead>
             <tbody>
@@ -35,10 +38,10 @@
     $('body').on('click','.deletePost',function (e){
         e.preventDefault()
         Swal.fire({
-            title: "آیا از حذف این پست مطمئن هستید؟",
+            title: "Are you sure?",
             showCancelButton: true,
-            confirmButtonText: "تایید",
-            cancelButtonText: "لغو",
+            confirmButtonText: "yes",
+            cancelButtonText: "cancel",
 
         }).then((result) => {
             if (result.isConfirmed) {
@@ -84,7 +87,7 @@
                             </svg>
                         </a>`);
         },
-        "language": {"url": "{{ asset('library/datatable/persian.json') }}"},
+        {#"language": {"url": "{{ asset('library/datatable/persian.json') }}"},#}
     });
 
     Dropzone.options.uploadFiles = {
